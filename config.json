@@ -2,11 +2,7 @@
     "http":{
         "ssl/tls":"True"},
     "server":{
-        "port":"",
-        "host":8000,
-        "proxy":{
-            "host":"localhost",
-            "port":8000
-            }
-        }
+        "port":16000,
+        "host":""
+    }
 }

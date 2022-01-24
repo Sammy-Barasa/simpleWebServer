@@ -1,4 +1,4 @@
-import json,os
+import json,os,sys
 
 def get_config(base_directory,file):
     """check for config file from root of directory"""
@@ -23,10 +23,11 @@ def get_config(base_directory,file):
         print("\t2. no")
         res = int(input(" "))
         if res == 1:
-            get_config("config_default.json")
+            deflt=get_config(base_directory,"config_default.json")
             print(" Using default config")
-            return True
+            return deflt
         print("quiting setup>>>>")
+        sys.exit(1)
         return False
         
     except BaseException as e:

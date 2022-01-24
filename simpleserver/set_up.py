@@ -1,5 +1,4 @@
 import platform,os
-import string
 from utils import get_config, check_ssl_cert
 
 
@@ -29,18 +28,20 @@ def run_setup(base_dir):
     if sthttp:
         
         # find key.pem, cert.pem from root directory
-        print(os.getenv("CERT"))
+        
+        
         print(sthttp)
-        certs = check_ssl_cert(base_dir,os.environ.get("CERT"),os.environ.get("KEY"),plt)
+        certs = check_ssl_cert(base_dir,os.environ.get("CERT","cert.pem"),os.environ.get("KEY","key.pem"),plt)
         if certs:
             # accept only linux  for ssl/tls for easy setup
             conf_to_use["http"]=old_config["http"]
-            return
+            return conf_to_use
         # ensure ssl/tls fase if no cert.pem,key.pem files
         conf_to_use["http"]={"ssl/tls":"False"}
-        return
+        print(conf_to_use)
+        return  conf_to_use
     
-        
+  
     # set server states: alive, restarting, reloading, failed
         # start  -- initial starting, set_up_complete state; con_fig_has_changed
             #    -- store current value of config in memory

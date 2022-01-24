@@ -1,6 +1,6 @@
 from pathlib import Path
 from serverclass import serverthread
-import sys
+import sys, ssl
 from set_up import run_setup
 
 # import logging
@@ -23,19 +23,25 @@ if __name__ == "__main__":
             # start surver
             cfig = run_setup(BASE_DIR)
             print(cfig)
-            serverthread.ThreadedServer(config = cfig,set_up_complete=True,can_reload =True).run()
+            serverthread.ThreadedServer(config = cfig,set_up_complete=True,base_dir=BASE_DIR).run()
         elif mode =="reload":
-            serverthread.ThreadedServer(config = {"port":3000,"host":"","ssl/tls":"True"},set_up_complete=True,can_reload =True).run()
+            serverthread.ThreadedServer(config = {"port":3000,"host":"","ssl/tls":"True"},set_up_complete=True).run()
         else:
             print("use the below comand and available options.")
-            print("python3 main.py [start | reload]")
+            print("sudo python3 main.py [start | reload]")
+    
+    except ssl.SSLEOFError as sslerr:
+        print("Secure HTTPS connection is required")
+        print(sslerr)
+
     except BaseException as B:
         print(type(B))
         print(B)
+        raise
     except:
         print("")
         print("Use the below comand and available options.")
-        print("python3 main.py start | reload")
+        print("sudo python3 main.py start | reload")
 
 
 
