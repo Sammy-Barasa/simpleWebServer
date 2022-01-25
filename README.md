@@ -78,13 +78,13 @@ During its running it is subject to wait time on linux environment after executi
 
 - OpenSSL comes by default on linux environment. You can use the following command to create one  ``` openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365```
 - ONLY TWO environment variables may be required incase.If you name othernamse asside from `cert.pem` and `key.pem` put them in environment variables such as shown below :
-    create environment im root directory
+    -create environment im root directory
     ```python3 -m venv venv```
-    activate the environment
+    -activate the environment
     ``` source venv/bin/activate```
-    create `.env` file in root directory 
-    use the following constants: `CERT` and `KEY`
-    Environment variable example:
+    -create `.env` file in root directory 
+    -use the following constants: `CERT` and `KEY`
+    -Environment variable example:
     ```
     "CERT"=server.pem
     "KEY"=server_key.pem
