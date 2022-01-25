@@ -103,6 +103,6 @@ Other improvements are on the way
 
 #### License
 
-MIT
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Free Software, Hell Yeah!**
