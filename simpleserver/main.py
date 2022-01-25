@@ -16,16 +16,17 @@ if __name__ == "__main__":
 
     try:
         mode = sys.argv[1]
-
+        old_conf = {}
         if mode == "start":
             # run setup
             # validation before starting server
             # start surver
             cfig = run_setup(BASE_DIR)
+            old_conf=cfig
             print(cfig)
             serverthread.ThreadedServer(config = cfig,set_up_complete=True,base_dir=BASE_DIR).run()
         elif mode =="reload":
-            serverthread.ThreadedServer(config = {"port":3000,"host":"","ssl/tls":"True"},set_up_complete=True).run()
+            serverthread.ThreadedServer(config = old_conf,set_up_complete=True,base_dir=BASE_DIR).run()
         else:
             print("use the below comand and available options.")
             print("sudo python3 main.py [start | reload]")

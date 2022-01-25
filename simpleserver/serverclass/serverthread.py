@@ -23,7 +23,7 @@ class ThreadedServer(Thread):
             # creating secure transport layer supporting HTTPS
             print("Creating a secure communication layer..")
             try:
-                sock = ssl.wrap_socket(serversocket,certfile=os.path.join(self.dirbase,"cert.pem"),keyfile=os.path.join(self.dirbase,"key.pem"),server_side=True)
+                sock = ssl.wrap_socket(serversocket,certfile=os.path.join(self.dirbase,os.environ.get("CERT","cert.pem")),keyfile=os.path.join(self.dirbase,os.environ.get("KEY","key.pem")),server_side=True)
                 print("Created a secure communication layer") 
             except BaseException as g:
                 print(type(g))
@@ -32,7 +32,7 @@ class ThreadedServer(Thread):
                 return self.run() # incase off error do http
             except:
                 print("Creating a non-secure http communication layer ...")
-                sock = ssl.wrap_socket(serversocket, cert_reqs=ssl.CERT_NONE,certfile=os.path.join(self.dirbase,"cert.pem"),keyfile=os.path.join(self.dirbase,"key.pem"),
+                sock = ssl.wrap_socket(serversocket, cert_reqs=ssl.CERT_NONE,certfile=os.path.join(self.dirbase,os.environ.get("CERT","cert.pem")),keyfile=os.path.join(self.dirbase,os.environ.get("KEY","key.pem")),
                                  server_side=True)
     
         else:                          
@@ -60,10 +60,12 @@ class ThreadedServer(Thread):
                         print(f"New connection from {address} ")
                         webworker = WorkerClass(con=client_conn,config=self.conf)
                         # webworker.setDaemon(True)
-                        # webworker.start()
-                        webworker.run()
+                        webworker.start()
+                        # webworker.run()
                         client_conn.close()
-                        
+                        webworker.join()
+                        break
+                    
                 # lsof -l -nping -c 3 127.0.0.1
                 # https://www.programcreek.com/python/example/1124/ssl.wrap_socket
                 # https://realpython.com/python-sockets/

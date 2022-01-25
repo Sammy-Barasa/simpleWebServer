@@ -4,7 +4,7 @@ from threading import Thread
 
 class WorkerClass(Thread):
     def __init__(self,con=None,config={}):
-        super(WorkerClass, self).__init__()
+        Thread.__init__(self)
         self.con = con
         self.config = config
         self.req = None        
@@ -38,7 +38,11 @@ class WorkerClass(Thread):
         # client_connection.close()
         print("response sent")
         self.req=None
-        "POST / HTTP/1.1"
+        "POST /form.php HTTP/1.1"
+        "Content-Type: application/json"
+        "Content-Length: 21"
+        resp =  b"HTTP/1.1 200 OK\n\nHello World"
+        client_connection.send(resp)
         # cgitb.enable()
         return        
     
@@ -91,8 +95,12 @@ class WorkerClass(Thread):
             self.decode_req(self.con)        
         
     def run(self):
-        self.process_req()
-        return  
+        try:
+            self.process_req()
+            
+        except BaseException:
+            raise
+          
     # get request header
 
         # content type
