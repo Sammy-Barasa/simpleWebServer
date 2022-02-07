@@ -37,7 +37,8 @@ For future versions you will be able to add proxy options and that option can be
     "server":{
         "port":16000,
         "host":"",
-        "port":{"port":8000,
+        "proxy":{
+                "port":8000,
                 "host":"localhost"
         }
     }
